@@ -1,0 +1,76 @@
+import cumbre.*
+import paises.*
+import participante.*
+import conocimientos.*
+
+ describe "test programadores"
+ {
+ 	const argentina = new Pais()
+ 	const brasil = new Pais()
+ 	const colombia = new Pais()
+ 	
+ 	const juana = new Programador(cantidadDeCommitsPublicos = 600, nacionalidad = argentina,conocimientos = #{programacionBasica,css,html})
+ 	const lucia = new Programador(cantidadDeCommitsPublicos = 800, nacionalidad = brasil,conocimientos = #{programacionBasica,basesDeDatos})
+ 	const mariana = new Especialista(cantidadDeCommitsPublicos = 200, nacionalidad = argentina,conocimientos = #{programacionBasica,instalacionLinux,objetos,disenioConObjetos})
+ 	const susana = new Especialista(cantidadDeCommitsPublicos = 1500, nacionalidad = colombia,conocimientos = #{programacionBasica,objetos})
+ 	
+ 	test "registrando a juana,lucia y mariana se tiene como participantes a Argentina y Brasil"
+ 	{
+ 		cumbre.registrarParticipante(juana)
+ 		cumbre.registrarParticipante(lucia)
+ 		cumbre.registrarParticipante(mariana)
+ 		assert.equals(#{argentina,brasil},cumbre.paisesParticipantes())
+ 	}
+ 	
+ 	test "registrando a juana,lucia y mariana se tiene como cantidad de participantes a 2 en Argentina y 1 Brasil"
+ 	{
+ 		cumbre.registrarParticipante(juana)
+ 		cumbre.registrarParticipante(lucia)
+ 		cumbre.registrarParticipante(mariana)
+ 		assert.equals(2,cumbre.cantidadDeParticipantesDe(argentina))
+ 		assert.equals(1,cumbre.cantidadDeParticipantesDe(brasil))
+ 	}
+ 	
+ 	test "registrando a juana,lucia y mariana se tiene como argentina con mas participantes"
+ 	{
+ 		cumbre.registrarParticipante(juana)
+ 		cumbre.registrarParticipante(lucia)
+ 		cumbre.registrarParticipante(mariana)
+ 		assert.equals(argentina,cumbre.paisConMasParticipantes())
+ 	}
+ 	
+ 	test "registrando a juana,lucia, mariana la cumbre es relevante"
+ 	{
+ 		cumbre.registrarParticipante(juana)
+ 		cumbre.registrarParticipante(lucia)
+ 		cumbre.registrarParticipante(mariana)
+ 		assert.that(cumbre.esRelevante())
+ 	}
+ 	
+ 	test "registrando a juana,lucia, mariana y susana se tiene como participantes a Argentina, Brasil y colombia"
+ 	{
+ 		cumbre.registrarParticipante(juana)
+ 		cumbre.registrarParticipante(lucia)
+ 		cumbre.registrarParticipante(mariana)
+ 		cumbre.registrarParticipante(susana)
+ 		assert.equals(#{argentina,brasil,colombia},cumbre.paisesParticipantes())
+ 	}
+ 	
+ 	test "registrando a juana,lucia, mariana y susana se tiene como argentina con mas participantes"
+ 	{
+ 		cumbre.registrarParticipante(juana)
+ 		cumbre.registrarParticipante(lucia)
+ 		cumbre.registrarParticipante(mariana)
+ 		cumbre.registrarParticipante(susana)
+ 		assert.equals(argentina,cumbre.paisConMasParticipantes())
+ 	}
+ 	
+ 	test "registrando a juana,lucia, mariana y susana la cumbre no es relevante"
+ 	{
+ 		cumbre.registrarParticipante(juana)
+ 		cumbre.registrarParticipante(lucia)
+ 		cumbre.registrarParticipante(mariana)
+ 		cumbre.registrarParticipante(susana)
+ 		assert.notThat(cumbre.esRelevante())
+ 	}
+ }
